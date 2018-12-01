@@ -1,4 +1,4 @@
-module ChronalCalibration where
+module Main where
 
 import Data.IntSet (IntSet)
 import qualified Data.IntSet as IntSet
@@ -26,3 +26,10 @@ part2_solveFromFile :: String -> IO Int
 part2_solveFromFile s = do
     input_data <- readFile s
     return (part2_solve input_data)
+
+main = do
+    result <- part1_solveFromFile "day1/input.txt"
+    print result
+    result <- part2_solveFromFile "day1/input.txt"
+    print result
+
