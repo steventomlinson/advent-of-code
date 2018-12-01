@@ -27,9 +27,10 @@ part2_solveFromFile s = do
     input_data <- readFile s
     return (part2_solve input_data)
 
+main :: IO ()
 main = do
-    result <- part1_solveFromFile "day1/input.txt"
-    print result
-    result <- part2_solveFromFile "day1/input.txt"
-    print result
+    part1_result <- part1_solveFromFile "day1/input.txt"
+    print part1_result
+    part2_result <- part2_solveFromFile "day1/input.txt"
+    print part2_result
 
