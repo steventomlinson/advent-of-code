@@ -1,5 +1,8 @@
 module ChronalCalibration where
 
+import Data.Set (Set)
+import qualified Data.Set as Set
+
 inputToList :: String -> [Integer]
 inputToList s = map read $ words (filter (not . flip elem ",'+") s)
 
@@ -12,9 +15,12 @@ part1_solveFromFile s = do
     return (part1_solve input_data)
 
 part2_solve :: String -> Integer
-part2_solve s = let inner_solve items_seen (x:xs)   |  (x + head items_seen) `elem` items_seen = x + head items_seen
-                                                    | otherwise = inner_solve ((x + head items_seen) : items_seen) xs
-    in inner_solve [0] (cycle (inputToList s))
+part2_solve s = inner_solve 0 (Set.fromList []) (cycle (inputToList s))
+    where 
+        inner_solve :: Integer -> Set Integer -> [Integer] -> Integer
+        inner_solve curr_item items_seen (x:xs) 
+            | curr_item `Set.member` items_seen = curr_item
+            | otherwise = inner_solve (curr_item + x) (curr_item `Set.insert` items_seen) xs
 
 part2_solveFromFile :: String -> IO Integer
 part2_solveFromFile s = do
