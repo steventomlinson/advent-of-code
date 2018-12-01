@@ -13,11 +13,11 @@ part1_solveFromFile s = do
 
 part2_solve :: String -> Integer
 part2_solve s = let init_xs = inputToList s in 
-    let inner_solve log xs = case xs of 
-                                [] -> inner_solve log init_xs
+    let inner_solve trace xs = case xs of 
+                                [] -> inner_solve trace init_xs
                                 (x:xs') 
-                                    | elem (x + head log) log -> x + head log
-                                    | otherwise-> inner_solve ([x + head log] ++ log) xs'
+                                    | elem (x + head trace) trace -> x + head trace
+                                    | otherwise-> inner_solve ([x + head trace] ++ trace) xs'
     in inner_solve [0] init_xs
 
 part2_solveFromFile :: String -> IO Integer
