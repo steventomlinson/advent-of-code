@@ -9,11 +9,6 @@ inputToList s = map read $ words (filter (not . flip elem ",'+") s)
 part1_solve :: String -> Int
 part1_solve = sum . inputToList
 
-part1_solveFromFile :: String -> IO Int
-part1_solveFromFile s = do 
-    input_data <- readFile s
-    return (part1_solve input_data)
-
 part2_solve :: String -> Int
 part2_solve = inner_solve 0 (IntSet.fromList []) . (cycle . inputToList)
     where 
@@ -22,15 +17,16 @@ part2_solve = inner_solve 0 (IntSet.fromList []) . (cycle . inputToList)
             | curr_item `IntSet.member` items_seen = curr_item
             | otherwise = inner_solve (curr_item + x) (curr_item `IntSet.insert` items_seen) xs
 
-part2_solveFromFile :: String -> IO Int
-part2_solveFromFile s = do
+solveFromFile :: String -> (String -> Int) -> IO Int
+solveFromFile s f = do
     input_data <- readFile s
-    return (part2_solve input_data)
+    return (f input_data)
 
 main :: IO ()
 main = do
-    part1_result <- part1_solveFromFile "day1/input.txt"
+    let solve = solveFromFile "day1/input.txt"
+    part1_result <- solve part1_solve 
     print part1_result
-    part2_result <- part2_solveFromFile "day1/input.txt"
+    part2_result <- solve part2_solve
     print part2_result
 
