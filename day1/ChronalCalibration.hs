@@ -8,7 +8,7 @@ inputToList s = map read $ words (filter (not . flip elem ",'+") s)
 
 part1_solve :: String -> Int
 part1_solve = sum . inputToList
-
+    
 part2_solve :: String -> Int
 part2_solve = inner_solve 0 (IntSet.fromList []) . (cycle . inputToList)
     where 
@@ -16,6 +16,7 @@ part2_solve = inner_solve 0 (IntSet.fromList []) . (cycle . inputToList)
         inner_solve curr_item items_seen (x:xs) 
             | curr_item `IntSet.member` items_seen = curr_item
             | otherwise = inner_solve (curr_item + x) (curr_item `IntSet.insert` items_seen) xs
+        inner_solve _ _ [] = error "Urm how?!?!?!"
 
 solveFromFile :: String -> (String -> Int) -> IO Int
 solveFromFile s f = do
