@@ -15,7 +15,7 @@ part1_solveFromFile s = do
     return (part1_solve input_data)
 
 part2_solve :: String -> Integer
-part2_solve = inner_solve 0 (Set.fromList []) . (inputToList . cycle)
+part2_solve = inner_solve 0 (Set.fromList []) . (cycle . inputToList)
     where 
         inner_solve :: Integer -> Set Integer -> [Integer] -> Integer
         inner_solve curr_item items_seen (x:xs) 
