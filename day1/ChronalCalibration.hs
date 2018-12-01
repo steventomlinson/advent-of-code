@@ -7,7 +7,7 @@ inputToList :: String -> [Integer]
 inputToList s = map read $ words (filter (not . flip elem ",'+") s)
 
 part1_solve :: String -> Integer
-part1_solve s = sum (inputToList s)
+part1_solve = sum . inputToList
 
 part1_solveFromFile :: String -> IO Integer
 part1_solveFromFile s = do 
@@ -15,7 +15,7 @@ part1_solveFromFile s = do
     return (part1_solve input_data)
 
 part2_solve :: String -> Integer
-part2_solve s = inner_solve 0 (Set.fromList []) (cycle (inputToList s))
+part2_solve = inner_solve 0 (Set.fromList []) . (inputToList . cycle)
     where 
         inner_solve :: Integer -> Set Integer -> [Integer] -> Integer
         inner_solve curr_item items_seen (x:xs) 
