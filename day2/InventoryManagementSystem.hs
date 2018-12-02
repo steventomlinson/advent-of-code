@@ -6,6 +6,7 @@ import qualified Data.Map as Map
 import qualified Data.Set as Set
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
+import Debug.Trace
 
 part1_solve :: String -> Int
 part1_solve = inner_solve 0 0 . lines
@@ -23,26 +24,14 @@ part1_solve = inner_solve 0 0 . lines
                 get_freq (c:cs) m = get_freq cs (Map.adjust (+1) c m)
 
 part2_solve :: String -> String
-part2_solve = inner_solve . lines
+part2_solve = inner_solve . List.sort . lines
     where
-        is_id :: String -> String -> Bool
-        is_id s1 s2 = off_by_one s1 s2 False
-            where
-                off_by_one :: String -> String -> Bool -> Bool
-                off_by_one [] [] True = True
-                off_by_one (c1:cs1) (c2:cs2) False  | c1 /= c2 = off_by_one cs1 cs2 True
-                                                    | otherwise = off_by_one cs1 cs2 False
-                off_by_one (c1:cs1) (c2:cs2) True   | c1 /= c2 = False
-                                                    | otherwise = off_by_one cs1 cs2 True
-        get_id :: String -> [String] -> Maybe String
-        get_id _ [] = Nothing
-        get_id l (x:xs) = if is_id l x then
-                Just (l `List.intersect` x)
-            else
-                get_id l xs
+        off_by_one :: String -> String -> Bool
+        off_by_one a b = length (filter (uncurry (/=)) (zip a b)) == 1
         inner_solve :: [String] -> String
-        inner_solve [] = error "Not valid input"
-        inner_solve (l:ls) = Maybe.fromMaybe (inner_solve ls) (get_id l ls)
+        inner_solve [] = error "No input"
+        inner_solve (x1:x2:xs)  | off_by_one x1 x2 = List.intersect x2 x1
+                                | otherwise = inner_solve (x2:xs)
 
 solveFromFile :: String -> (String -> a) -> IO a
 solveFromFile s f = do
