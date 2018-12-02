@@ -26,12 +26,12 @@ part1_solve = inner_solve 0 0 . lines
 part2_solve :: String -> String
 part2_solve = inner_solve . List.sort . lines
     where
-        off_by_one :: String -> String -> Bool
-        off_by_one a b = length (filter (uncurry (/=)) (zip a b)) == 1
+        off_by_one :: String -> String -> Maybe String
+        off_by_one a b = let s = filter (uncurry (==)) (zip a b) in 
+            if length s == length a - 1 then (Just . map fst) s else Nothing
         inner_solve :: [String] -> String
         inner_solve [] = error "No input"
-        inner_solve (x1:x2:xs)  | off_by_one x1 x2 = List.intersect x2 x1
-                                | otherwise = inner_solve (x2:xs)
+        inner_solve (x1:x2:xs)  = Maybe.fromMaybe (inner_solve (x2:xs)) (off_by_one x1 x2)
 
 solveFromFile :: String -> (String -> a) -> IO a
 solveFromFile s f = do
