@@ -9,7 +9,7 @@ part1_solve :: String -> Int
 part1_solve = inner_solve 0 0 . lines
     where
         hasx :: String -> Int -> Int
-        hasx s i    | i `elem` map length ((List.group . List.sort) s) = 1
+        hasx s i    | (any (\x -> length x == i) . List.group . List.sort) s = 1
                     | otherwise = 0
         inner_solve :: Int -> Int -> [String] -> Int
         inner_solve n2 n3 [] = n2 * n3
