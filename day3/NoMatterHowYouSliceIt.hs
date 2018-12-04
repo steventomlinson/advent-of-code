@@ -1,4 +1,6 @@
-module NoMatterHowYouSliceIt where
+module NoMatterHowYouSliceIt (
+    noMatterHowYouSliceIt
+) where
 
 import Data.Char
 import qualified Data.Map as Map

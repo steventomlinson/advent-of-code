@@ -1,4 +1,6 @@
-module ReposeRecord where
+module ReposeRecord (
+    resposeRecord
+) where
 
 import qualified Data.List as List
 import Data.List.Split
@@ -57,7 +59,7 @@ buildMinutesAsleep m id (l:ls)
             | Map.member mi1 m = updateMinutes (Map.adjust (+1) mi1 m) (incTime (y1, mo1, d1, h1, mi1)) (y2, mo2, d2, h2, mi2)
             | otherwise = updateMinutes (Map.insert mi1 1 m) (incTime (y1, mo1, d1, h1, mi1)) (y2, mo2, d2, h2, mi2)
         addData :: Map.Map Int (Map.Map Int Int) -> Int -> LogRecord -> LogRecord -> Map.Map Int (Map.Map Int Int)
-        addData m id l1 l2 = Map.insert id (updateMinutes (Map.findWithDefault (Map.empty) id m) (time l1) (time l2)) m
+        addData m id l1 l2 = Map.insert id (updateMinutes (Map.findWithDefault Map.empty id m) (time l1) (time l2)) m
 
 part1_solve :: String -> Int
 part1_solve = findGuard . buildMinutesAsleep Map.empty 0 . List.sortBy sortLogRecord . toLogs
@@ -90,8 +92,8 @@ solveFromFile s f = do
     input_data <- readFile s
     return (f input_data)
 
-responseRecord :: IO ()
-responseRecord = do
+resposeRecord :: IO ()
+resposeRecord = do
     let solve = solveFromFile "day4/input.txt"
     part1_result <- solve part1_solve
     print part1_result
