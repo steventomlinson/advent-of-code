@@ -12,7 +12,7 @@ library
         NoMatterHowYouSliceIt,
         ReposeRecord
     build-depends:
-        base >=4.12 && <4.13,
+        base >=4.0,
         split -any,
         containers -any
     hs-source-dirs: day1, day2, day3, day4
