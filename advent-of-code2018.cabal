@@ -1,13 +1,9 @@
 cabal-version: >=1.10
 name: advent-of-code2018
 version: 0.1.0.0
-license: BSD3
-license-file: LICENSE
 maintainer: t97steven@gmail.com
 author: Steven Tomlinson
 build-type: Simple
-extra-source-files:
-    CHANGELOG.md
 
 library
     exposed-modules:
