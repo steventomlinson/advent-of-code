@@ -1,9 +1,10 @@
-module AlchemicalReduction where
+module AlchemicalReduction (
+    alchemicalReduction
+) where
 
 import Data.Char
 import qualified Data.Map as Map
 import Data.List (minimum)
-import Debug.Trace
 
 removeAllDuplicates :: String -> String
 removeAllDuplicates = foldr removeDuplicate ""
@@ -15,11 +16,11 @@ removeAllDuplicates = foldr removeDuplicate ""
 part1_solve :: String -> Int
 part1_solve = length . removeAllDuplicates
 
-part2_solve = minimum . doAll part1_solve ['a'..'z']
-        where
-            doAll :: (String -> Int) -> String -> String -> [Int]
-            doAll f [c] s = [f (filter (not . flip elem (c:[toUpper c])) s)]
-            doAll f (c:cs) s = f (filter (not . flip elem (c:[toUpper c])) s)  : doAll f cs s
+part2_solve :: String -> Int
+part2_solve s = minimum (foldr getLength [] ['a' .. 'z'])
+    where
+        getLength :: Char -> [Int] -> [Int]
+        getLength c xs = part1_solve (filter ((/=c) . toLower) s) : xs
 
 solveFromFile :: String -> (String -> a) -> IO a
 solveFromFile s f = do
