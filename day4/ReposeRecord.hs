@@ -1,5 +1,5 @@
 module ReposeRecord (
-    resposeRecord
+    reposeRecord
 ) where
 
 import qualified Data.List as List
@@ -92,8 +92,8 @@ solveFromFile s f = do
     input_data <- readFile s
     return (f input_data)
 
-resposeRecord :: IO ()
-resposeRecord = do
+reposeRecord :: IO ()
+reposeRecord = do
     let solve = solveFromFile "day4/input.txt"
     part1_result <- solve part1_solve
     print part1_result
