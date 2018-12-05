@@ -17,7 +17,10 @@ part1_solve :: String -> Int
 part1_solve = length . removeAllDuplicates
 
 part2_solve :: String -> Int
-part2_solve s = minimum (map (\c -> part1_solve (filter ((/=c) . toLower) s)) ['a' .. 'z'])
+part2_solve s = minimum (foldr getLength [] ['a' .. 'z'])
+    where
+        getLength :: Char -> [Int] -> [Int]
+        getLength c xs = part1_solve (filter ((/=c) . toLower) s) : xs
 
 solveFromFile :: String -> (String -> a) -> IO a
 solveFromFile s f = do
