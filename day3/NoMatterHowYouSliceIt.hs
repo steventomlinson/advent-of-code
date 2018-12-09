@@ -5,7 +5,7 @@ module NoMatterHowYouSliceIt (
 import Data.Char
 import qualified Data.Map as Map
 
-convertInput :: [String ] -> [(Int, (Int, Int, Int, Int))]
+convertInput :: [String] -> [(Int, (Int, Int, Int, Int))]
 convertInput [] = []
 convertInput (x:xs) = (to_tuple . map (read :: String->Int) . words . map (\c -> if isNumber c then c else ' ')) x : convertInput xs -- We parse the input into tuples to do our calculations on
     where 

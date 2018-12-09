@@ -17,7 +17,7 @@ part1_solve :: String -> Int
 part1_solve = length . removeAllDuplicates
 
 part2_solve :: String -> Int
-part2_solve s = minimum (map (\c -> part1_solve (filter ((/=c) . toLower) s)) ['a' .. 'z'])
+part2_solve s = foldl (\m c -> let v = part1_solve (filter ((/=c) . toLower) s) in if v < m then v else m) (length s) ['a' .. 'z']
 
 solveFromFile :: String -> (String -> a) -> IO a
 solveFromFile s f = do
