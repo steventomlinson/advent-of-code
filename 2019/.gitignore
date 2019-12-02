@@ -1,2 +1,2 @@
-*.ali
-*.o
+bin
+obj

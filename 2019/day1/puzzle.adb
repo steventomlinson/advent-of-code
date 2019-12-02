@@ -1,5 +1,5 @@
 with Ada.Text_IO;
-procedure Day1 is
+procedure Puzzle is
    type t_sol is record
       part1 : Integer;
       part2 : Integer;
@@ -35,4 +35,4 @@ begin
    sol := do_sol (input);
    Ada.Text_IO.Put_Line ("Puzzle 1 solution:" & sol.part1'Img);
    Ada.Text_IO.Put_Line ("Puzzle 2 solution:" & sol.part2'Img);
-end Day1;
+end Puzzle;
