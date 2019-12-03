@@ -79,21 +79,15 @@ procedure Puzzle is
 
    input : Ada.Text_IO.File_Type;
    sol : t_sol;
+   m_orig : p_memory.Vector;
 begin
    Ada.Text_IO.Open (input, Ada.Text_IO.In_File, "input.txt");
-   declare
-   begin
-      set_memory (memory'Access, input);
-      memory.Replace_Element (1, 12);
-      memory.Replace_Element (2, 2);
-      declare
-         m_orig : p_memory.Vector := memory;
-      begin
-         sol.part1 := do_part1 (memory);
-         memory := m_orig;
-         sol.part2 := do_part2 (m_orig);
-      end;
-   end;
+   set_memory (memory'Access, input);
+   memory.Replace_Element (1, 12);
+   memory.Replace_Element (2, 2);
+   m_orig := memory;
+   sol.part1 := do_part1 (memory);
+   sol.part2 := do_part2 (m_orig);
    Ada.Text_IO.Put_Line ("Puzzle 1 solution:" & sol.part1'Img);
    Ada.Text_IO.Put_Line ("Puzzle 2 solution:" & sol.part2'Img);
 end Puzzle;
