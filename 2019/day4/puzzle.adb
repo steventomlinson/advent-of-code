@@ -1,6 +1,9 @@
 with Ada.Text_IO;
-with Ada.Containers.Ordered_Sets;
 procedure Puzzle is
+   type t_sol is record
+      part1 : Integer;
+      part2 : Integer;
+   end record;
 
    generic
       with function valid_password (p : Integer) return Boolean;
@@ -33,21 +36,22 @@ procedure Puzzle is
       end t_runner;
    end p_runner;
 
-
-   type t_sol is record
-      part1 : Integer;
-      part2 : Integer;
-   end record;
-
    function valid_password1 (p : Integer) return Boolean is
-      str : String := p'Image;
+      arr : array (1 .. 6) of Integer := (
+         p / 100_100,
+         (p / 10_000) mod 10,
+         (p / 1_000) mod 10,
+         (p / 100) mod 10,
+         (p / 10) mod 10,
+         p mod 10
+      );
       seen_double : Boolean := False;
    begin
-      for i in str'Range loop
-         if not (i = str'First) then
-            if str (i) = str (i - 1) then
+      for i in arr'Range loop
+         if not (i = arr'First) then
+            if arr (i) = arr (i - 1) then
                seen_double := True;
-            elsif str (i) < str (i - 1) then
+            elsif arr (i) < arr (i - 1) then
                return False;
             end if;
          end if;
@@ -57,15 +61,22 @@ procedure Puzzle is
    end valid_password1;
 
    function valid_password2 (p : Integer) return Boolean is
-      str : String := p'Image;
+      arr : array (1 .. 6) of Integer := (
+         p / 100_100,
+         (p / 10_000) mod 10,
+         (p / 1_000) mod 10,
+         (p / 100) mod 10,
+         (p / 10) mod 10,
+         p mod 10
+      );
       seen_double : Boolean := False;
       current_seen : Integer := 1;
    begin
-      for i in str'Range loop
-         if not (i = str'First) then
-            if str (i) = str (i - 1) then
+      for i in arr'Range loop
+         if not (i = arr'First) then
+            if arr (i) = arr (i - 1) then
                current_seen := current_seen + 1;
-            elsif str (i) < str (i - 1) then
+            elsif arr (i) < arr (i - 1) then
                return False;
             else
                if current_seen = 2 then
@@ -81,7 +92,6 @@ procedure Puzzle is
       return seen_double;
    end valid_password2;
 
-   input : Ada.Text_IO.File_Type;
    sol : t_sol := (0, 0);
 begin
    declare
