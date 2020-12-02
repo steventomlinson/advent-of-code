@@ -28,6 +28,7 @@ fn main() {
         }
     }
     println!("part 1 = {}", result);
+
     i = 0;
     j = ints.len() - 1;
     let mut k = i + 1;
@@ -54,7 +55,5 @@ fn main() {
             k = k + 1;
         }
     }
-
     println!("part 2 = {}", result);
-
 }
