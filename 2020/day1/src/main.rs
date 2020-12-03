@@ -27,7 +27,7 @@ fn main() {
             i = i + 1;
         }
     }
-    println!("part 1 = {}", result);
+    println!("part1 = {}", result);
 
     i = 0;
     j = ints.len() - 1;
@@ -55,5 +55,5 @@ fn main() {
             k = k + 1;
         }
     }
-    println!("part 2 = {}", result);
+    println!("part2 = {}", result);
 }
