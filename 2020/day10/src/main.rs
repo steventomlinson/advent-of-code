@@ -67,7 +67,6 @@ fn main() {
     ints.insert(0, 0);
     let r : &mut HashMap<usize, usize> = &mut HashMap::new();
     
-    println!("{} {}", jolt1count, jolt3count);
     println!("part1 = {}", jolt1count * jolt3count);
     println!("part2 = {}", routes(&ints, 0, r));
 
