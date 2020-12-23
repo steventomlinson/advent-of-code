@@ -184,8 +184,6 @@ fn main() {
                 waypoint.y = ship.loc.y + ydiff;
             },
         }
-        
-        println!("{:?} {:?}", ship.loc, waypoint);
     }
 
     
